@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getBooks(req,res) {
+        fetch("http://localhost:3001/books-table")
+          .then(res => res.json())
+          .then(data => {
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = null;
+            for (const i in data) {
+              const book = data[i];
+              let tr = document.createElement("tr");
+              let th = document.createElement("th");
+              th.innerHTML = book.isbn;
+              tr.appendChild(th);
+              let td = document.createElement("td");
+              td.innerHTML = book.title;
+              tr.appendChild(td);
+              td = document.createElement("td");
+              td.innerHTML = book.author;
+              tr.appendChild(td);
+              td = document.createElement("td");
+              td.innerHTML = book.year;
+              tr.appendChild(td);
+              tableBody.appendChild(tr);
+            }
+          })
+          .catch(err => console.error(err));
+      }
+    </script>
+</body>
+</html>
